@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="98f194f5-a1d8-466c-a5f5-4fe34b044006" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../ex1/personal_regression.asv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex2/LSTM_network.mlx" beforeDir="false" afterPath="$PROJECT_DIR$/../ex2/LSTM_network.mlx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex2/feedforward_live.mlx" beforeDir="false" afterPath="$PROJECT_DIR$/../ex2/feedforward_live.mlx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex2/hopdigit_v2.m" beforeDir="false" afterPath="$PROJECT_DIR$/../ex2/hopdigit_v2.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex2/rep3.m" beforeDir="false" afterPath="$PROJECT_DIR$/../ex2/rep3.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex3/CNNDigits.m" beforeDir="false" afterPath="$PROJECT_DIR$/../ex3/CNNDigits.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex3/DigitClassification.m" beforeDir="false" afterPath="$PROJECT_DIR$/../ex3/DigitClassification.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ex3/PCA_on_Handwritten_Digits_V1_1.mlx" beforeDir="false" afterPath="$PROJECT_DIR$/../ex3/PCA_on_Handwritten_Digits_V1_1.mlx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1seUs1PaUsLBaCiOaRE6hCRaZNx" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="98f194f5-a1d8-466c-a5f5-4fe34b044006" name="Default Changelist" comment="" />
+      <created>1621232751985</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621232751985</updated>
+    </task>
+    <servers />
+  </component>
+</project>
