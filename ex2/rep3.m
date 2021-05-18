@@ -6,9 +6,10 @@
 T = [1 1 1; -1 -1 1; 1 -1 -1]';
 net = newhop(T);
 n=10;
+iter = 50;
 for i=1:n
     a={rands(3,1)};                         % generate an initial point                   
-    [y,Pf,Af] = sim(net,{1 50},{},a);       % simulation of the network  for 50 timesteps
+    [y,Pf,Af] = sim(net,{1 iter},{},a);       % simulation of the network  for 50 timesteps
     record=[cell2mat(a) cell2mat(y)];       % formatting results
     start=cell2mat(a);                      % formatting results 
     plot3(start(1,1),start(2,1),start(3,1),'bx',record(1,:),record(2,:),record(3,:),'r');  % plot evolution
