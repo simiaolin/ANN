@@ -10,20 +10,20 @@ close all
 %%%%%%%%%%%
 
 % Configuration:
-alg1 = 'traingd';% First training algorithm to use
+alg1 = 'trainbr';% First training algorithm to use
 alg2 = 'trainbfg';% Second training algorithm to use
 alg3 = 'trainlm';
 
-H = 50;% Number of neurons in the hidden layer
+H = 500;% Number of neurons in the hidden layer
 delta_epochs = [1,14,985];% Number of epochs to train in each step
 epochs = cumsum(delta_epochs);
 
 %generation of examples and targets
-dx=0.05;% Decrease this value to increase the number of data points
+dx=0.025;% Decrease this value to increase the number of data points
 x=0:dx:3*pi;y=sin(x.^2);
 sigma=0.2;% Standard deviation of added noise
 yn=y+sigma*randn(size(y));% Add gaussian noise
-t=y;% Targets. Change to yn to train on noisy data
+t=yn;% Targets. Change to yn to train on noisy data
 
 
 %creation of networks
@@ -59,6 +59,10 @@ net2=train(net2,x,t);
 net3=train(net3,x,t);
 
 a11=sim(net1,x); a21=sim(net2,x); a31=sim(net3, x); % simulate the networks with the input vector x
+mse_a11 = mean((a11 - y).^2);
+mse_a21 = mean((a21 - y).^2);
+mse_a31 = mean((a31 - y).^2);
+
 
 net1.trainParam.epochs=delta_epochs(2);
 net2.trainParam.epochs=delta_epochs(2);
@@ -67,6 +71,9 @@ net1=train(net1,x,t);
 net2=train(net2,x,t);
 net3=train(net3,x,t);
 a12=sim(net1,x); a22=sim(net2,x); a32=sim(net3,x);
+mse_a12 = mean((a12 - y).^2);
+mse_a22 = mean((a22 - y).^2);
+mse_a32 = mean((a32 - y).^2);
 
 net1.trainParam.epochs=delta_epochs(3);
 net2.trainParam.epochs=delta_epochs(3);
@@ -75,6 +82,9 @@ net1=train(net1,x,t);
 net2=train(net2,x,t);
 net3=train(net3,x,t);
 a13=sim(net1,x); a23=sim(net2,x); a33=sim(net3,x);
+mse_a13 = mean((a13 - y).^2);
+mse_a23 = mean((a23 - y).^2);
+mse_a33 = mean((a33 - y).^2);
 
 %plots
 figure
@@ -84,15 +94,15 @@ title([num2str(epochs(1)),' epochs']);
 legend('target',alg1,alg2,alg3,'Location','north');
 subplot(3,4,2);
 postregm(a11,y); % perform a linear regression analysis and plot the result
-title ([alg1,':  ', num2str(epochs(1)),' epoch'])
+title ([alg1,':  ', num2str(epochs(1)),' epoch,  MSE: ', num2str(mse_a11)])
 
 subplot(3,4,3);
 postregm(a21,y);
-title ([alg2, ':  ', num2str(epochs(1)),' epoch'])
+title ([alg2, ':  ', num2str(epochs(1)),' epoch,  MSE: ', num2str(mse_a21)])
 
 subplot(3,4,4);
 postregm(a31,y);
-title ([alg3, ':  ', num2str(epochs(1)),' epoch'])
+title ([alg3, ':  ', num2str(epochs(1)),' epoch,  MSE: ', num2str(mse_a31)])
 
 
 subplot(3,4,5);
@@ -101,15 +111,15 @@ title([num2str(epochs(2)),' epoch']);
 legend('target',alg1,alg2,alg3,'Location','north');
 subplot(3,4,6);
 postregm(a12,y);
-title ([alg1, ':  ', num2str(epochs(2)),' epoch'])
+title ([alg1, ':  ', num2str(epochs(2)),' epoch,  MSE: ', num2str(mse_a12)])
 
 subplot(3,4,7);
 postregm(a22,y);
-title ([alg2,':  ', num2str(epochs(2)),' epoch'])
+title ([alg2,':  ', num2str(epochs(2)),' epoch,  MSE: ', num2str(mse_a22)])
 
 subplot(3,4,8);
 postregm(a32,y);
-title ([alg3, ':  ', num2str(epochs(2)),' epoch'])
+title ([alg3, ':  ', num2str(epochs(2)),' epoch,  MSE: ', num2str(mse_a32)])
 
 %
 subplot(3,4,9);
@@ -118,14 +128,14 @@ title([num2str(epochs(3)),' epoch']);
 legend('target',alg1,alg2,alg3,'Location','north');
 subplot(3,4,10);
 postregm(a13,y);
-title ([alg1, ':  ', num2str(epochs(3)),' epoch'])
+title ([alg1, ':  ', num2str(epochs(3)),' epoch,  MSE: ', num2str(mse_a13)])
 
 subplot(3,4,11);
 postregm(a23,y);
-title ([alg2, ':  ', num2str(epochs(3)),' epoch'])
+title ([alg2, ':  ', num2str(epochs(3)),' epoch,  MSE: ', num2str(mse_a23)])
 
 subplot(3,4,12);
 postregm(a33,y);
-title ([alg3, ':  ', num2str(epochs(3)),' epoch'])
+title ([alg3, ':  ', num2str(epochs(3)),' epoch,  MSE: ', num2str(mse_a33)])
 
 

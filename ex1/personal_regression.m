@@ -1,8 +1,32 @@
 
+% Configuration:
+alg = 'trainlm';% First training algorithm to use
+H = 100;% Number of neurons in the hidden layer
+delta_epochs = [1,4,10];% Number of epochs to train in each step
+epochs = cumsum(delta_epochs);
+one_net=feedforwardnet(H,alg);
+aaaa = one_net.layers{1}.transferFcn;
+%one_net.layers{1}.transferFcn='purelin';
+
+H1 = 10; H2 = 50;
+two_net=feedforwardnet([H1, H2],alg);
+% two_net.layers{1}.transferFcn='tansig';
+%  two_net.layers{2}.transferFcn='purelin';
+aaaa = two_net.layers{1}.transferFcn;
+bbbb = two_net.layers{2}.transferFcn;
+
+
+H1 = 20; H2 = 20; H3= 20;
+three_net=feedforwardnet([H1, H2, H3],alg);
+% two_net.layers{1}.transferFcn='purelin';
+% two_net.layers{2}.transferFcn='purelin';
+net = two_net;
+
+
 % build a new target Tnew
 % consider the largest 5 digits of your student number in descending order, represented
 % by d1; d2; d3; d4; d5 (with d1 the largest digit).
-% student number: 0481422
+% student number: 0829520   9 8 5 2 2
 d1 = 9;d2 = 8;d3 = 5;d4 = 2;d5 = 2;
 
 % Tnew = (d1T1 + d2T2 + d3T3 + d4T4 + d5T5)/(d1 + d2 + d3 + d4 + d5).
@@ -11,7 +35,9 @@ Tnew = (d1*T1 + d2*T2 + d3*T3 + d4*T4 + d5*T5)/(d1 + d2 + d3 + d4 + d5);
 
 
 % training set
-T_index = randperm(length(X1),1000);
+All_index = randperm(length(X1),3000);
+
+T_index = All_index(1:1000);
 X1_train = X1(T_index);
 X2_train = X2(T_index);
 X_train = [X1_train, X2_train];
@@ -34,7 +60,10 @@ xlabel('X1'), ylabel('X2'), zlabel('Target')
 legend('Sample data','Interpolated query data','Location','Best')
 
 % validation set
-V_index = randperm(length(X1),1000);
+% V_index = randperm(length(X1),1000);
+V_index = All_index(1001:2000);
+
+
 X1_val = X1(V_index);
 X2_val = X2(V_index);
 X_val = [X1_val, X2_val]; 
@@ -44,7 +73,8 @@ t_val = T_val.';
 
 
 % test set 
-Test_index = randperm(length(X1),1000);
+% Test_index = randperm(length(X1),1000);
+Test_index =  All_index(2001:3000);
 X1_test = X1(Test_index);
 X2_test = X2(Test_index);
 X_test = [X1_test, X2_test]; 
@@ -59,15 +89,10 @@ t_test = T_test.';
 % trainbfg - BFGS (quasi Newton)
 % trainlm - Levenberg - Marquardt
 
-% Configuration:
-alg = 'trainbfg';% First training algorithm to use
-H = 50;% Number of neurons in the hidden layer
-delta_epochs = [1,14,85];% Number of epochs to train in each step
-epochs = cumsum(delta_epochs);
 
 
 %creation of networks
-net=feedforwardnet(H,alg);
+
 net=configure(net,x_train,t_train);% Set the input and output sizes of the net
 net.divideFcn = 'dividetrain';% Use training set only (no validation and test split)
 net=init(net);% Initialize the weights (randomly)
@@ -102,15 +127,15 @@ A3 = a3.';
 
 %validation 
 
-Er = t1 - t_val;
+Er = t1 - t_train;
 Se = Er.^2;
 MSE_t1 = mean(Se);
 
-Er = t2 - t_val;
+Er = t2 - t_train;
 Se = Er.^2;
 MSE_t2 = mean(Se);
 
-Er = t2 - t_val;
+Er = t3 - t_train;
 Se = Er.^2;
 MSE_t3 = mean(Se);
 
@@ -124,16 +149,31 @@ Er = v2 - t_val;
 Se = Er.^2;
 MSE_v2 = mean(Se);
 
-Er = v2 - t_val;
+Er = v3 - t_val;
 Se = Er.^2;
 MSE_v3 = mean(Se);
 
 MSE_Val = [MSE_v1 MSE_v2 MSE_v3]
 
+Er = a1 - t_test;
+Se = Er.^2;
+MSE_a1 = mean(Se);
+
+Er = a2 - t_test;
+Se = Er.^2;
+MSE_a2 = mean(Se);
+
+Er = a3 - t_test;
+Se = Er.^2;
+MSE_a3 = mean(Se);
+
+MSE_Test = [MSE_a1 MSE_a2 MSE_a3]
+
+
 figure('Name','Iteration VS. Error')
 
-plot(epochs, MSE_Train, epochs, MSE_Val)
-legend('training set','validation set');
+plot(epochs, MSE_Train, epochs, MSE_Val, epochs, MSE_Test)
+legend('training set','validation set', 'test set');
 title('Iteration VS. Error');
 xlabel('Iteration step');
 ylabel('E');
